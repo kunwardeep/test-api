@@ -1,0 +1,9 @@
+version: '3.3'
+services:
+  test-api:
+    build:
+      context: ./
+      dockerfile: Dockerfile-test-api
+    environment:
+      - API_ENDPOINT
+    image: test-api

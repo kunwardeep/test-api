@@ -1,0 +1,8 @@
+FROM node:6.10-slim
+
+# Install tools & libs to compile everything
+RUN apt-get update && apt-get install -y && apt-get clean
+
+COPY . /test-api
+WORKDIR /test-api
+RUN npm install
