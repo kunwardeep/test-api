@@ -1,0 +1,450 @@
+
+> test-api@1.0.0 test /Users/kunwardeep/code/test-api
+> mocha --reporter spec --timeout 10000 "test/**/*.test.js"
+
+
+
+  Save Bank Details with aba field
+    And bank country code - US
+      And valid length
+        ✓ Should accept bsb code '012345678' of length 9 with RESPONSE - Bank details saved and STATUS CODE - 200 (74ms)
+      And invalid length
+        ✓ Should reject aba code '01234567' of length 8 with ERROR - Length of 'aba' should be 9 and STATUS CODE - 400 (53ms)
+        ✓ Should reject aba code '0123456789' of length 10 with ERROR - Length of 'aba' should be 9 and STATUS CODE - 400 (38ms)
+      And valid characters
+        ✓ Should accept aba code '012345678' because numbers are acceptable with RESPONSE - Bank details saved and STATUS CODE - 200 (50ms)
+        ✓ Should accept aba code 'abcdefghi' because alphabets are acceptable with RESPONSE - Bank details saved and STATUS CODE - 200 (53ms)
+        ✓ Should accept aba code '@!#$%^&()' because special characters are acceptable with RESPONSE - Bank details saved and STATUS CODE - 200 (50ms)
+      And empty aba
+        1) Should reject with ERROR - 'aba' is required when bank country code is 'US' and STATUS CODE - 400
+      And missing aba
+        2) Should reject with ERROR - 'aba' is required when bank country code is 'US' and STATUS CODE - 400
+    And bank country code - AU
+      And no aba
+        ✓ Should accept with RESPONSE - Bank details saved and STATUS CODE - 200 (52ms)
+    And bank country code - CN
+      And no aba
+        ✓ Should accept with RESPONSE - Bank details saved and STATUS CODE - 200 (41ms)
+
+  Save Bank Details with account_name field
+    And valid length
+      ✓ Should accept account name 'Jo' of length 2 with RESPONSE - Bank details saved and STATUS CODE - 200 (53ms)
+      ✓ Should accept account name 'Jon' of length 3 with RESPONSE - Bank details saved and STATUS CODE - 200 (46ms)
+      ✓ Should accept account name 'John Smit' of length 9 with RESPONSE - Bank details saved and STATUS CODE - 200 (48ms)
+      ✓ Should accept account name 'John Smith' of length 10 with RESPONSE - Bank details saved and STATUS CODE - 200 (50ms)
+    And special characters
+      ✓ Should accept account name with special characters - '!"#$%&'()*' with RESPONSE - Bank details saved and STATUS CODE - 200 (52ms)
+      ✓ Should accept account name with special characters - '+,-./:;<=>' with RESPONSE - Bank details saved and STATUS CODE - 200 (47ms)
+      ✓ Should accept account name with special characters - '?@[\]^_`{' with RESPONSE - Bank details saved and STATUS CODE - 200 (56ms)
+      ✓ Should accept account name with special characters - '|}~1' with RESPONSE - Bank details saved and STATUS CODE - 200 (43ms)
+    And invalid length
+      ✓ Should reject account name 'J' of length 1 with ERROR - Length of account_name should be between 2 and 10 and STATUS CODE - 400 (52ms)
+      ✓ Should reject account name 'John Smitty' of length 11 with ERROR - Length of account_name should be between 2 and 10 and STATUS CODE - 400 (44ms)
+    And empty account name
+      ✓ Should reject with ERROR - 'account_name' is required and STATUS CODE - 400 (49ms)
+    And missing account name
+      ✓ Should reject with ERROR - 'account_name' is required and STATUS CODE - 400 (51ms)
+
+  Save Bank Details with account_number field
+    And bank country code - US
+      And valid length
+        ✓ Should accept account number '1' of length 1 with RESPONSE - Bank details saved and STATUS CODE - 200 (47ms)
+        ✓ Should accept account number '12' of length 2 with RESPONSE - Bank details saved and STATUS CODE - 200 (53ms)
+        ✓ Should accept account number '0123456789012345' of length 16 with RESPONSE - Bank details saved and STATUS CODE - 200 (45ms)
+        ✓ Should accept account number '01234567890123456' of length 17 with RESPONSE - Bank details saved and STATUS CODE - 200 (53ms)
+      And special characters
+        ✓ Should accept account number with special characters - '!"#$%&'()*+,-./:;' with RESPONSE - Bank details saved and STATUS CODE - 200 (49ms)
+        ✓ Should accept account number with special characters - ''<=>?@[\]^_`{|}~1' with RESPONSE - Bank details saved and STATUS CODE - 200 (47ms)
+      And invalid length
+        3) Should reject account number '012345678901234567' of length 18 with ERROR - Length of account_number should be between 1 and 17 when bank_country_code is 'US' and STATUS CODE - 400
+      And empty account number
+        ✓ Should reject with ERROR - 'account_number' is required and STATUS CODE - 400 (39ms)
+      And missing account name
+        ✓ Should reject with ERROR - 'account_number' is required and STATUS CODE - 400 (49ms)
+    And bank country code - AU
+      And valid length
+        ✓ Should accept account number '012345' of length 6 with RESPONSE - Bank details saved and STATUS CODE - 200 (49ms)
+        ✓ Should accept account number '0123456' of length 7 with RESPONSE - Bank details saved and STATUS CODE - 200 (50ms)
+        ✓ Should accept account number '01234567' of length 8 with RESPONSE - Bank details saved and STATUS CODE - 200 (54ms)
+        ✓ Should accept account number '012345678' of length 9 with RESPONSE - Bank details saved and STATUS CODE - 200 (47ms)
+      And special characters
+        ✓ Should accept account number with special characters - '!"#$%&'()' with RESPONSE - Bank details saved and STATUS CODE - 200 (53ms)
+        ✓ Should accept account number with special characters - '*+,-./:;'' with RESPONSE - Bank details saved and STATUS CODE - 200 (44ms)
+        ✓ Should accept account number with special characters - '<=>?@[\]^' with RESPONSE - Bank details saved and STATUS CODE - 200 (43ms)
+        ✓ Should accept account number with special characters - '_`{|}~1' with RESPONSE - Bank details saved and STATUS CODE - 200 (46ms)
+      And invalid length
+        4) Should reject account number '01234' of length 5 with ERROR - Length of account_number should be between 6 and 9 when bank_country_code is 'AU' and STATUS CODE - 400
+        5) Should reject account number '0123456789' of length 10 with ERROR - Length of account_number should be between 6 and 9 when bank_country_code is 'AU' and STATUS CODE - 400
+      And empty account number
+        ✓ Should reject with ERROR - 'account_number' is required and STATUS CODE - 400 (54ms)
+      And missing account name
+        ✓ Should reject with ERROR - 'account_number' is required and STATUS CODE - 400 (44ms)
+    And bank country code - CN
+      And valid length
+        ✓ Should accept account number '01234567' of length 8 with RESPONSE - Bank details saved and STATUS CODE - 200 (60ms)
+        ✓ Should accept account number '012345678' of length 9 with RESPONSE - Bank details saved and STATUS CODE - 200 (43ms)
+        6) Should accept account number '0123456789012345678' of length 19 with RESPONSE - Bank details saved and STATUS CODE - 200
+        7) Should accept account number '01234567890123456789' of length 20 with RESPONSE - Bank details saved and STATUS CODE - 200
+      And special characters
+        ✓ Should accept account number with special characters - '!"#$%&'()' with RESPONSE - Bank details saved and STATUS CODE - 200 (41ms)
+        ✓ Should accept account number with special characters - '*+,-./:;'' with RESPONSE - Bank details saved and STATUS CODE - 200 (52ms)
+        ✓ Should accept account number with special characters - '<=>?@[\]^' with RESPONSE - Bank details saved and STATUS CODE - 200 (47ms)
+        ✓ Should accept account number with special characters - '_`{|}~1' with RESPONSE - Bank details saved and STATUS CODE - 200 (50ms)
+      And invalid length
+        8) Should reject account number '0123456' of length 7 with ERROR - Length of account_number should be between 8 and 20 when bank_country_code is 'CN' and STATUS CODE - 400
+        9) Should reject account number '012345678901234567890' of length 21 with ERROR - Length of account_number should be between 8 and 20 when bank_country_code is 'CN' and STATUS CODE - 400
+      And empty account number
+        ✓ Should reject with ERROR - 'account_number' is required and STATUS CODE - 400 (53ms)
+      And missing account name
+        ✓ Should reject with ERROR - 'account_number' is required and STATUS CODE - 400 (45ms)
+
+  Save Bank Details with bank_country_code field
+    And valid bank country code
+      ✓ Should accept bank country code - US with RESPONSE - Bank details saved and STATUS CODE - 200 (48ms)
+      ✓ Should accept bank country code - AU with RESPONSE - Bank details saved and STATUS CODE - 200 (53ms)
+      ✓ Should accept bank country code - CN with RESPONSE - Bank details saved and STATUS CODE - 200 (62ms)
+    And invalid bank country code
+      ✓ Should reject with ERROR - 'bank_country_code' is required, and should be one of 'US', 'AU', or 'CN' and STATUS CODE - 400 (45ms)
+    And empty bank country code
+      ✓ Should reject with ERROR - 'bank_country_code' is required, and should be one of 'US', 'AU', or 'CN' and STATUS CODE - 400 (52ms)
+    And missing bank country code
+      ✓ Should reject with ERROR - 'bank_country_code' is required, and should be one of 'US', 'AU', or 'CN' and STATUS CODE - 400 (47ms)
+
+  Save Bank Details with bsb field
+    And bank country code - AU
+      And valid length
+        ✓ Should accept bsb code '012345' of length 6 with RESPONSE - Bank details saved and STATUS CODE - 200 (60ms)
+      And invalid length
+        ✓ Should reject bsb code '01234' of length 5 with ERROR - Length of 'bsb' should be 6 and STATUS CODE - 400 (38ms)
+        ✓ Should reject bsb code '0123456' of length 7 with ERROR - Length of 'bsb' should be 6 and STATUS CODE - 400
+      And valid characters
+        ✓ Should accept bsb code '012345' because numbers are acceptable with RESPONSE - Bank details saved and STATUS CODE - 200 (48ms)
+        ✓ Should accept bsb code 'abcdef' because alphabets are acceptable with RESPONSE - Bank details saved and STATUS CODE - 200 (52ms)
+        ✓ Should accept bsb code '@!#$%^' because special characters are acceptable with RESPONSE - Bank details saved and STATUS CODE - 200 (47ms)
+      And empty bsb
+        ✓ Should reject with ERROR - 'bsb' is required when bank country code is 'AU' and STATUS CODE - 400 (50ms)
+      And missing bsb
+        ✓ Should reject with ERROR - 'bsb' is required when bank country code is 'AU' and STATUS CODE - 400
+    And bank country code - US
+      And no bsb
+        ✓ Should accept with RESPONSE - Bank details saved and STATUS CODE - 200 (46ms)
+    And bank country code - CN
+      And no bsb
+        ✓ Should accept with RESPONSE - Bank details saved and STATUS CODE - 200 (55ms)
+
+  Save Bank Details with payment_method field
+    And valid payment method
+      ✓ Should accept payment method - SWIFT with RESPONSE - Bank details saved and STATUS CODE - 200 (42ms)
+      ✓ Should accept payment method - LOCAL with RESPONSE - Bank details saved and STATUS CODE - 200 (55ms)
+    And invalid payment method
+      ✓ Should reject with ERROR - 'payment_method' field required, the value should be either 'LOCAL' or 'SWIFT' and STATUS CODE - 400 (45ms)
+    And empty payment method
+      ✓ Should reject with ERROR - 'payment_method' field required, the value should be either 'LOCAL' or 'SWIFT' and STATUS CODE - 400 (73ms)
+    And missing payment method
+      ✓ Should reject with ERROR - 'payment_method' field required, the value should be either 'LOCAL' or 'SWIFT' and STATUS CODE - 400 (44ms)
+
+  Save Bank Details with swift_code field
+    And bank country code - US
+      And valid length
+        ✓ Should accept swift code 'ICBCUSBJ' of length 8 with RESPONSE - Bank details saved and STATUS CODE - 200 (53ms)
+        ✓ Should accept swift code 'ICBCUSBJ012' of length 11 with RESPONSE - Bank details saved and STATUS CODE - 200 (45ms)
+      And invalid length
+        ✓ Should reject swift code 'ICBCUSB' of length 7 with ERROR - Length of 'swift_code' should be either 8 or 11 and STATUS CODE - 400 (49ms)
+        10) Should reject swift code 'ICBCUSBJ0' of length 9 with ERROR - Length of 'swift_code' should be either 8 or 11 and STATUS CODE - 400
+        11) Should reject swift code 'ICBCUSBJ01' of length 10 with ERROR - Length of 'swift_code' should be either 8 or 11 and STATUS CODE - 400
+        ✓ Should reject swift code 'ICBCUSBJ0123' of length 12 with ERROR - Length of 'swift_code' should be either 8 or 11 and STATUS CODE - 400 (50ms)
+      And missing bank country code 'US' in the 5th and 6th position in the swift code
+        ✓ Should reject swift code 'ICBCAUBJ', because country code AU in the 5th and 6th position with ERROR - The swift code is not valid for the given bank country code: US and STATUS CODE - 400 (50ms)
+        ✓ Should reject swift code 'ICBCCNBJ', because country code CN in the 5th and 6th position with ERROR - The swift code is not valid for the given bank country code: US and STATUS CODE - 400 (48ms)
+        ✓ Should reject swift code 'ICBCSABJ', because non specific country code in in the 5 and 6th position with ERROR - The swift code is not valid for the given bank country code: US and STATUS CODE - 400 (55ms)
+        ✓ Should reject swift code 'ICBUSCBJ', because country code US in the 4th and 5th position with ERROR - The swift code is not valid for the given bank country code: US and STATUS CODE - 400 (59ms)
+        ✓ Should reject swift code 'ICBCJUSC', because country code US in the 6th and 7th position with ERROR - The swift code is not valid for the given bank country code: US and STATUS CODE - 400 (49ms)
+      And empty swift code
+        ✓ Should reject with ERROR - 'swift_code' is required when payment method is 'SWIFT' and STATUS CODE - 400 (56ms)
+      And missing swift code
+        ✓ Should reject with ERROR - 'swift_code' is required when payment method is 'SWIFT' and STATUS CODE - 400 (52ms)
+    And bank country code - AU
+      And valid length
+        ✓ Should accept swift code 'ICBCAUBJ' of length 8 with RESPONSE - Bank details saved and STATUS CODE - 200 (46ms)
+        ✓ Should accept swift code 'ICBCAUBJ012' of length 11 with RESPONSE - Bank details saved and STATUS CODE - 200 (58ms)
+      And invalid length
+        ✓ Should reject swift code 'ICBCAUB' of length 7 with ERROR - Length of 'swift_code' should be either 8 or 11 and STATUS CODE - 400 (46ms)
+        12) Should reject swift code 'ICBCAUBJ0' of length 9 with ERROR - Length of 'swift_code' should be either 8 or 11 and STATUS CODE - 400
+        13) Should reject swift code 'ICBCAUBJ01' of length 10 with ERROR - Length of 'swift_code' should be either 8 or 11 and STATUS CODE - 400
+        ✓ Should reject swift code 'ICBCAUBJ0123' of length 12 with ERROR - Length of 'swift_code' should be either 8 or 11 and STATUS CODE - 400 (77ms)
+      And missing bank country code 'AU' in the 5th and 6th position in the swift code
+        ✓ Should reject swift code 'ICBCUSBJ', because country code US in the 5th and 6th position with ERROR - The swift code is not valid for the given bank country code: AU and STATUS CODE - 400 (43ms)
+        ✓ Should reject swift code 'ICBCCNBJ', because country code CN in the 5th and 6th position with ERROR - The swift code is not valid for the given bank country code: AU and STATUS CODE - 400 (59ms)
+        ✓ Should reject swift code 'ICBCSABJ', because non specific country code in in the 5 and 6th position with ERROR - The swift code is not valid for the given bank country code: AU and STATUS CODE - 400 (40ms)
+        ✓ Should reject swift code 'ICBAUCBJ', because country code AU in the 4th and 5th position with ERROR - The swift code is not valid for the given bank country code: AU and STATUS CODE - 400 (59ms)
+        ✓ Should reject swift code 'ICBCJAUC', because country code AU in the 6th and 7th position with ERROR - The swift code is not valid for the given bank country code: AU and STATUS CODE - 400 (61ms)
+      And empty swift code
+        ✓ Should reject with ERROR - 'swift_code' is required when payment method is 'SWIFT' and STATUS CODE - 400 (40ms)
+      And missing swift code
+        ✓ Should reject with ERROR - 'swift_code' is required when payment method is 'SWIFT' and STATUS CODE - 400 (49ms)
+    And bank country code - CN
+      And valid length
+        ✓ Should accept swift code 'ICBCCNBJ' of length 8 with RESPONSE - Bank details saved and STATUS CODE - 200 (49ms)
+        ✓ Should accept swift code 'ICBCCNBJ012' of length 11 with RESPONSE - Bank details saved and STATUS CODE - 200 (49ms)
+      And invalid length
+        ✓ Should reject swift code 'ICBCCNB' of length 7 with ERROR - Length of 'swift_code' should be either 8 or 11 and STATUS CODE - 400 (54ms)
+        14) Should reject swift code 'ICBCCNBJ0' of length 9 with ERROR - Length of 'swift_code' should be either 8 or 11 and STATUS CODE - 400
+        15) Should reject swift code 'ICBCCNBJ01' of length 10 with ERROR - Length of 'swift_code' should be either 8 or 11 and STATUS CODE - 400
+        ✓ Should reject swift code 'ICBCCNBJ0123' of length 12 with ERROR - Length of 'swift_code' should be either 8 or 11 and STATUS CODE - 400 (47ms)
+      And missing bank country code 'CN' in the 5th and 6th position in the swift code
+        ✓ Should reject swift code 'ICBCUSBJ', because country code US in the 5th and 6th position with ERROR - The swift code is not valid for the given bank country code: CN and STATUS CODE - 400 (45ms)
+        ✓ Should reject swift code 'ICBCAUBJ', because country code AU in the 5th and 6th position with ERROR - The swift code is not valid for the given bank country code: CN and STATUS CODE - 400 (52ms)
+        ✓ Should reject swift code 'ICBCSABJ', because non specific country code in in the 5 and 6th position with ERROR - The swift code is not valid for the given bank country code: CN and STATUS CODE - 400 (45ms)
+        ✓ Should reject swift code 'ICBCNCBJ', because country code CN in the 4th and 5th position with ERROR - The swift code is not valid for the given bank country code: CN and STATUS CODE - 400 (56ms)
+        ✓ Should reject swift code 'ICBCJCNC', because country code CN in the 6th and 7th position with ERROR - The swift code is not valid for the given bank country code: CN and STATUS CODE - 400 (40ms)
+      And empty swift code
+        ✓ Should reject with ERROR - 'swift_code' is required when payment method is 'SWIFT' and STATUS CODE - 400 (47ms)
+      And missing swift code
+        ✓ Should reject with ERROR - 'swift_code' is required when payment method is 'SWIFT' and STATUS CODE - 400 (49ms)
+
+
+  100 passing (6s)
+  15 failing
+
+  1) Save Bank Details with aba field
+       And bank country code - US
+         And empty aba
+           Should reject with ERROR - 'aba' is required when bank country code is 'US' and STATUS CODE - 400:
+
+      AssertionError: expected { success: 'Bank details saved' } to deeply equal { Object (error) }
+      + expected - actual
+
+       {
+      -  "success": "Bank details saved"
+      +  "error": "'aba' is required when bank country code is 'US'"
+       }
+      
+      at saveBankDetails.then.response (helper.js:19:37)
+      at process._tickCallback (internal/process/next_tick.js:109:7)
+
+  2) Save Bank Details with aba field
+       And bank country code - US
+         And missing aba
+           Should reject with ERROR - 'aba' is required when bank country code is 'US' and STATUS CODE - 400:
+
+      AssertionError: expected { success: 'Bank details saved' } to deeply equal { Object (error) }
+      + expected - actual
+
+       {
+      -  "success": "Bank details saved"
+      +  "error": "'aba' is required when bank country code is 'US'"
+       }
+      
+      at saveBankDetails.then.response (helper.js:19:37)
+      at process._tickCallback (internal/process/next_tick.js:109:7)
+
+  3) Save Bank Details with account_number field
+       And bank country code - US
+         And invalid length
+           Should reject account number '012345678901234567' of length 18 with ERROR - Length of account_number should be between 1 and 17 when bank_country_code is 'US' and STATUS CODE - 400:
+
+      AssertionError: expected { Object (error) } to deeply equal { Object (error) }
+      + expected - actual
+
+       {
+      -  "error": "Length of account_number should be between 7 and 11 when bank_country_code is 'US'"
+      +  "error": "Length of account_number should be between 1 and 17 when bank_country_code is 'US'"
+       }
+      
+      at saveBankDetails.then.response (helper.js:19:37)
+      at process._tickCallback (internal/process/next_tick.js:109:7)
+
+  4) Save Bank Details with account_number field
+       And bank country code - AU
+         And invalid length
+           Should reject account number '01234' of length 5 with ERROR - Length of account_number should be between 6 and 9 when bank_country_code is 'AU' and STATUS CODE - 400:
+
+      AssertionError: expected { Object (error) } to deeply equal { Object (error) }
+      + expected - actual
+
+       {
+      -  "error": "Length of account_number should be between 7 and 11 when bank_country_code is 'US'"
+      +  "error": "Length of account_number should be between 6 and 9 when bank_country_code is 'AU'"
+       }
+      
+      at saveBankDetails.then.response (helper.js:19:37)
+      at process._tickCallback (internal/process/next_tick.js:109:7)
+
+  5) Save Bank Details with account_number field
+       And bank country code - AU
+         And invalid length
+           Should reject account number '0123456789' of length 10 with ERROR - Length of account_number should be between 6 and 9 when bank_country_code is 'AU' and STATUS CODE - 400:
+
+      AssertionError: expected { Object (error) } to deeply equal { Object (error) }
+      + expected - actual
+
+       {
+      -  "error": "Length of account_number should be between 7 and 11 when bank_country_code is 'US'"
+      +  "error": "Length of account_number should be between 6 and 9 when bank_country_code is 'AU'"
+       }
+      
+      at saveBankDetails.then.response (helper.js:19:37)
+      at process._tickCallback (internal/process/next_tick.js:109:7)
+
+  6) Save Bank Details with account_number field
+       And bank country code - CN
+         And valid length
+           Should accept account number '0123456789012345678' of length 19 with RESPONSE - Bank details saved and STATUS CODE - 200:
+
+      AssertionError: expected { Object (error) } to deeply equal { success: 'Bank details saved' }
+      + expected - actual
+
+       {
+      -  "error": "Length of account_number should be between 7 and 11 when bank_country_code is 'US'"
+      +  "success": "Bank details saved"
+       }
+      
+      at saveBankDetails.then.response (helper.js:19:37)
+      at process._tickCallback (internal/process/next_tick.js:109:7)
+
+  7) Save Bank Details with account_number field
+       And bank country code - CN
+         And valid length
+           Should accept account number '01234567890123456789' of length 20 with RESPONSE - Bank details saved and STATUS CODE - 200:
+
+      AssertionError: expected { Object (error) } to deeply equal { success: 'Bank details saved' }
+      + expected - actual
+
+       {
+      -  "error": "Length of account_number should be between 7 and 11 when bank_country_code is 'US'"
+      +  "success": "Bank details saved"
+       }
+      
+      at saveBankDetails.then.response (helper.js:19:37)
+      at process._tickCallback (internal/process/next_tick.js:109:7)
+
+  8) Save Bank Details with account_number field
+       And bank country code - CN
+         And invalid length
+           Should reject account number '0123456' of length 7 with ERROR - Length of account_number should be between 8 and 20 when bank_country_code is 'CN' and STATUS CODE - 400:
+
+      AssertionError: expected { success: 'Bank details saved' } to deeply equal { Object (error) }
+      + expected - actual
+
+       {
+      -  "success": "Bank details saved"
+      +  "error": "Length of account_number should be between 8 and 20 when bank_country_code is 'CN'"
+       }
+      
+      at saveBankDetails.then.response (helper.js:19:37)
+      at process._tickCallback (internal/process/next_tick.js:109:7)
+
+  9) Save Bank Details with account_number field
+       And bank country code - CN
+         And invalid length
+           Should reject account number '012345678901234567890' of length 21 with ERROR - Length of account_number should be between 8 and 20 when bank_country_code is 'CN' and STATUS CODE - 400:
+
+      AssertionError: expected { Object (error) } to deeply equal { Object (error) }
+      + expected - actual
+
+       {
+      -  "error": "Length of account_number should be between 7 and 11 when bank_country_code is 'US'"
+      +  "error": "Length of account_number should be between 8 and 20 when bank_country_code is 'CN'"
+       }
+      
+      at saveBankDetails.then.response (helper.js:19:37)
+      at process._tickCallback (internal/process/next_tick.js:109:7)
+
+  10) Save Bank Details with swift_code field
+       And bank country code - US
+         And invalid length
+           Should reject swift code 'ICBCUSBJ0' of length 9 with ERROR - Length of 'swift_code' should be either 8 or 11 and STATUS CODE - 400:
+
+      AssertionError: expected { success: 'Bank details saved' } to deeply equal { Object (error) }
+      + expected - actual
+
+       {
+      -  "success": "Bank details saved"
+      +  "error": "Length of 'swift_code' should be either 8 or 11"
+       }
+      
+      at saveBankDetails.then.response (helper.js:19:37)
+      at process._tickCallback (internal/process/next_tick.js:109:7)
+
+  11) Save Bank Details with swift_code field
+       And bank country code - US
+         And invalid length
+           Should reject swift code 'ICBCUSBJ01' of length 10 with ERROR - Length of 'swift_code' should be either 8 or 11 and STATUS CODE - 400:
+
+      AssertionError: expected { success: 'Bank details saved' } to deeply equal { Object (error) }
+      + expected - actual
+
+       {
+      -  "success": "Bank details saved"
+      +  "error": "Length of 'swift_code' should be either 8 or 11"
+       }
+      
+      at saveBankDetails.then.response (helper.js:19:37)
+      at process._tickCallback (internal/process/next_tick.js:109:7)
+
+  12) Save Bank Details with swift_code field
+       And bank country code - AU
+         And invalid length
+           Should reject swift code 'ICBCAUBJ0' of length 9 with ERROR - Length of 'swift_code' should be either 8 or 11 and STATUS CODE - 400:
+
+      AssertionError: expected { success: 'Bank details saved' } to deeply equal { Object (error) }
+      + expected - actual
+
+       {
+      -  "success": "Bank details saved"
+      +  "error": "Length of 'swift_code' should be either 8 or 11"
+       }
+      
+      at saveBankDetails.then.response (helper.js:19:37)
+      at process._tickCallback (internal/process/next_tick.js:109:7)
+
+  13) Save Bank Details with swift_code field
+       And bank country code - AU
+         And invalid length
+           Should reject swift code 'ICBCAUBJ01' of length 10 with ERROR - Length of 'swift_code' should be either 8 or 11 and STATUS CODE - 400:
+
+      AssertionError: expected { success: 'Bank details saved' } to deeply equal { Object (error) }
+      + expected - actual
+
+       {
+      -  "success": "Bank details saved"
+      +  "error": "Length of 'swift_code' should be either 8 or 11"
+       }
+      
+      at saveBankDetails.then.response (helper.js:19:37)
+      at process._tickCallback (internal/process/next_tick.js:109:7)
+
+  14) Save Bank Details with swift_code field
+       And bank country code - CN
+         And invalid length
+           Should reject swift code 'ICBCCNBJ0' of length 9 with ERROR - Length of 'swift_code' should be either 8 or 11 and STATUS CODE - 400:
+
+      AssertionError: expected { success: 'Bank details saved' } to deeply equal { Object (error) }
+      + expected - actual
+
+       {
+      -  "success": "Bank details saved"
+      +  "error": "Length of 'swift_code' should be either 8 or 11"
+       }
+      
+      at saveBankDetails.then.response (helper.js:19:37)
+      at process._tickCallback (internal/process/next_tick.js:109:7)
+
+  15) Save Bank Details with swift_code field
+       And bank country code - CN
+         And invalid length
+           Should reject swift code 'ICBCCNBJ01' of length 10 with ERROR - Length of 'swift_code' should be either 8 or 11 and STATUS CODE - 400:
+
+      AssertionError: expected { success: 'Bank details saved' } to deeply equal { Object (error) }
+      + expected - actual
+
+       {
+      -  "success": "Bank details saved"
+      +  "error": "Length of 'swift_code' should be either 8 or 11"
+       }
+      
+      at saveBankDetails.then.response (helper.js:19:37)
+      at process._tickCallback (internal/process/next_tick.js:109:7)
+
+
+

@@ -179,7 +179,7 @@ describe('Save Bank Details with account_number field', () => {
     });
 
     describe('And invalid length', () => {
-      const expectedResult = { error: "Length of account_number should be between 6 and 9 when bank_country_code is 'CN'" };
+      const expectedResult = { error: "Length of account_number should be between 8 and 20 when bank_country_code is 'CN'" };
       const BAD_REQUEST = 400;
 
       const accountArr = [

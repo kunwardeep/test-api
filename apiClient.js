@@ -11,7 +11,6 @@ const saveBankDetails = payload => {
   if (typeof serverAddr === 'undefined') {
     throw new Error('Please define API_ENDPOINT');
   }
-
   return http.post(saveBankDetailsEndPoint, payload)
     .then(response => {
       return response;
