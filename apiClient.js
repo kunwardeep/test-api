@@ -1,7 +1,5 @@
 const axios = require('axios');
 const serverAddr = process.env.API_ENDPOINT;
-// const serverAddr = 'http://preview.airwallex.com:30001';
-
 const saveBankDetailsEndPoint = '/bank';
 
 const http = axios.create({
@@ -10,6 +8,10 @@ const http = axios.create({
 });
 
 const saveBankDetails = payload => {
+  if (typeof serverAddr === 'undefined') {
+    throw new Error('Please define API_ENDPOINT');
+  }
+
   return http.post(saveBankDetailsEndPoint, payload)
     .then(response => {
       return response;
