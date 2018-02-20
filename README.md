@@ -48,4 +48,4 @@ To run linter in CI run the following command
 
 ## Test Results
 
-![Results](testResult.txt)
+[Results](testResult.txt)
